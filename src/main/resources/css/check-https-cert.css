@@ -1,0 +1,18 @@
+span.com-mesilat-check-cert-not-after
+{
+}
+
+span.com-mesilat-cert-ok
+{
+    background-color: #ccffcc
+}
+
+span.com-mesilat-cert-warn
+{
+    background-color: #ffffcc
+}
+
+span.com-mesilat-cert-error
+{
+    background-color: #ffcccc
+}

@@ -1,0 +1,50 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <resource type="i18n" name="i18n" location="check-https-cert"/>
+    <resource type="download" name="images/" location="/images"/>
+
+    <web-resource key="resources" name="Web Resources">
+        <transformation extension="soy">
+            <transformer key="soyTransformer">
+                <functions>com.atlassian.confluence.plugins.soy:soy-core-functions</functions>
+            </transformer>
+        </transformation>
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+
+        <resource type="download" name="check-https-cert.css"    location="/css/check-https-cert.css"/>
+        <resource type="download" name="check-https-cert.js"     location="/js/check-https-cert.js"/>
+        <resource type="download" name="images/"                 location="/images"/>
+        <resource type="download" name="check-https-cert.soy.js" location="/templates/check-https-cert.soy"/>
+
+        <context>check-https-cert</context>
+        <context>main</context>
+    </web-resource>
+
+﻿   <xhtml-macro key="cert-not-after" name="cert-not-after" state="enabled"
+                 class="com.mesilat.certs.CheckCertMacro"
+                 icon="/download/resources/com.mesilat.check-https-cert/images/pluginLogo.png">
+        <resource type="i18n" name="i18n" location="/i18n/check-https-cert"/>
+        <category name="confluence-content"/>
+        <description key="com.mesilat.check-https-cert.cert-not-after.desc"></description>
+        <parameters>
+            <parameter name="host" type="string" required="true"/>
+            <parameter name="port" type="string"/>
+        </parameters>
+    </xhtml-macro>
+
+
+    <rest key="rest" path="/check-cert" version="1.0" name="REST API">
+    </rest>
+
+</atlassian-plugin>

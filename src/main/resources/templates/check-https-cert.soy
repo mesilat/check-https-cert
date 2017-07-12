@@ -1,0 +1,10 @@
+{namespace Mesilat.CheckCert.Templates}
+
+/**
+* Check HTTPS Certificate Template
+* @param host
+* @param port
+*/
+{template .notAfter}
+    <span class="com-mesilat-check-cert-not-after" cert-cert-data:host="{$host}" cert-cert-data:port="{$port}">Loading...</span>
+{/template}
