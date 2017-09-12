@@ -6,8 +6,8 @@
                 url: AJS.contextPath() + '/rest/check-cert/1.0/cert/notAfter',
                 type: 'GET',
                 data: {
-                    host: $span.attr('cert-cert-data:host'),
-                    port: $span.attr('cert-cert-data:port')
+                    host: $span.attr('cert-data-host'),
+                    port: $span.attr('cert-data-port')
                 },
                 dataType: 'json',
                 context: $span

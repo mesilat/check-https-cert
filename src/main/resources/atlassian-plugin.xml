@@ -43,7 +43,11 @@
         </parameters>
     </xhtml-macro>
 
-
+    <macro name="cert-not-after-legacy" key="cert-not-after-legacy" class="com.mesilat.certs.CheckCertMacroLegacy" state="enabled">
+        <description key="com.mesilat.check-https-cert.cert-not-after.desc"></description>
+        <category name="content"/>
+    </macro>
+    
     <rest key="rest" path="/check-cert" version="1.0" name="REST API">
     </rest>
 

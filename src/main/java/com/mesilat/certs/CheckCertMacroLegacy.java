@@ -1,38 +1,39 @@
 package com.mesilat.certs;
 
-import com.atlassian.confluence.content.render.xhtml.ConversionContext;
-import com.atlassian.confluence.macro.Macro;
-import com.atlassian.confluence.macro.Macro.BodyType;
-import com.atlassian.confluence.macro.Macro.OutputType;
-import com.atlassian.confluence.macro.MacroExecutionException;
 import com.atlassian.confluence.renderer.template.TemplateRenderer;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import com.atlassian.renderer.RenderContext;
+import com.atlassian.renderer.v2.RenderMode;
+import com.atlassian.renderer.v2.macro.BaseMacro;
+import com.atlassian.renderer.v2.macro.MacroException;
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import javax.inject.Inject;
 
 @Scanned
-public class CheckCertMacro implements Macro {
+public class CheckCertMacroLegacy extends BaseMacro {
     public static final String PLUGIN_KEY = "com.mesilat.check-https-cert";
 
     private final TemplateRenderer renderer;
 
     @Override
-    public String execute(Map<String,String> parameters, String body, ConversionContext context) throws MacroExecutionException {
+    public String execute(@SuppressWarnings("rawtypes") Map parameters, String body, RenderContext renderContext) throws MacroException {
         Map map = ImmutableMap.builder()
             .put("host", parameters.get("host"))
             .put("port", parameters.containsKey("port")? parameters.get("port"): "443")
             .build();
         return renderFromSoy("resources", "Mesilat.CheckCert.Templates.notAfter.soy", map);
     }
+
     @Override
-    public BodyType getBodyType() {
-        return BodyType.NONE;
+    public RenderMode getBodyRenderMode() {
+        return RenderMode.ALL;
     }
+
     @Override
-    public OutputType getOutputType() {
-        return OutputType.INLINE;
+    public boolean hasBody() {
+        return false;
     }
 
     private String renderFromSoy(String key, String soyTemplate, Map soyContext) {
@@ -42,7 +43,7 @@ public class CheckCertMacro implements Macro {
     }
 
     @Inject
-    public CheckCertMacro(final @ComponentImport TemplateRenderer renderer){
+    public CheckCertMacroLegacy(final @ComponentImport TemplateRenderer renderer){
         this.renderer = renderer;
     }
 }

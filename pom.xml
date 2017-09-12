@@ -7,8 +7,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mesilat</groupId>
     <artifactId>check-https-cert</artifactId>
-    <version>1.0.0</version>
-    <!-- 1000000 -->
+    <version>1.0.1</version>
+    <!-- 10000010 -->
 
     <organization>
         <name>Mesilat Limited</name>
