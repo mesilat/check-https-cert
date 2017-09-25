@@ -13,7 +13,7 @@ import org.codehaus.jackson.node.ObjectNode;
 @Path("/cert")
 public class CheckCertResource {
 //    private final static Logger LOGGER = LoggerFactory.getLogger("com.mesilat.check-https-cert");
-    private final static long MS = 24l * 3600l * 1000l;
+    public final static long MS = 24l * 3600l * 1000l;
 
     @Path("notAfter")
     @GET

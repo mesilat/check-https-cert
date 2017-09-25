@@ -8,3 +8,16 @@
 {template .notAfter}
     <span class="com-mesilat-check-cert-not-after" cert-data-host="{$host}" cert-data-port="{$port}">Loading...</span>
 {/template}
+
+/**
+* Check HTTPS Certificate Sync Template
+* @param host
+* @param port
+* @param className
+* @param notAfterDate
+*/
+{template .notAfterSync}
+    <span class="com-mesilat-check-cert-not-after {$className}" cert-data-host="{$host}" cert-data-port="{$port}">
+        {$notAfterDate}
+    </span>
+{/template}

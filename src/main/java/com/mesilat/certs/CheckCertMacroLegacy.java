@@ -7,7 +7,8 @@ import com.atlassian.renderer.RenderContext;
 import com.atlassian.renderer.v2.RenderMode;
 import com.atlassian.renderer.v2.macro.BaseMacro;
 import com.atlassian.renderer.v2.macro.MacroException;
-import com.google.common.collect.ImmutableMap;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 
@@ -19,11 +20,29 @@ public class CheckCertMacroLegacy extends BaseMacro {
 
     @Override
     public String execute(@SuppressWarnings("rawtypes") Map parameters, String body, RenderContext renderContext) throws MacroException {
-        Map map = ImmutableMap.builder()
-            .put("host", parameters.get("host"))
-            .put("port", parameters.containsKey("port")? parameters.get("port"): "443")
-            .build();
-        return renderFromSoy("resources", "Mesilat.CheckCert.Templates.notAfter.soy", map);
+        Map<String,Object> map = new HashMap<>();
+        map.put("host", parameters.get("host"));
+        map.put("port", parameters.containsKey("port")? parameters.get("port"): "443");
+        if (parameters.containsKey("sync")){
+            try {
+                CheckCertificate check = new CheckCertificateImpl();
+                Date notAfter = check.getNotAfter(parameters.get("host").toString(), parameters.containsKey("port")? Integer.parseInt(parameters.get("port").toString()): 443);
+                long days = (notAfter.getTime()-System.currentTimeMillis()) / CheckCertResource.MS;
+                map.put("notAfterDate", notAfter.toString());
+                if (days > 7){
+                    map.put("className", "com-mesilat-cert-ok");
+                } else if (days > 3) {
+                    map.put("className", "com-mesilat-cert-warn");
+                } else {
+                    map.put("className", "com-mesilat-cert-error");
+                }
+                return renderFromSoy("resources", "Mesilat.CheckCert.Templates.notAfterSync.soy", map);
+            } catch (CheckCertificateException ex) {
+                throw new MacroException(ex);
+            }
+        } else {
+            return renderFromSoy("resources", "Mesilat.CheckCert.Templates.notAfter.soy", map);
+        }
     }
 
     @Override
