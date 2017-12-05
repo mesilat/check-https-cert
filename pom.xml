@@ -7,12 +7,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mesilat</groupId>
     <artifactId>check-https-cert</artifactId>
-    <version>1.0.2</version>
-    <!-- 10000011 -->
+    <version>1.0.5</version>
 
     <organization>
         <name>Mesilat Limited</name>
-        <url>http://www.mesilat.com/</url>
+        <url>http://www.mesilat.com/FAP/CheckHTTPS</url>
     </organization>
 
     <name>Check HTTPS Certificate</name>

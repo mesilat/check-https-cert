@@ -5,6 +5,7 @@
         <vendor name="${project.organization.name}" url="${project.organization.url}" />
         <param name="plugin-icon">images/pluginIcon.png</param>
         <param name="plugin-logo">images/pluginLogo.png</param>
+        <param name="atlassian-data-center-compatible">true</param>
     </plugin-info>
 
     <resource type="i18n" name="i18n" location="check-https-cert"/>
@@ -47,7 +48,11 @@
         <description key="com.mesilat.check-https-cert.cert-not-after.desc"></description>
         <category name="content"/>
     </macro>
-    
+    <macro name="cert-not-after" key="cert-not-after-legacy2" class="com.mesilat.certs.CheckCertMacroLegacy" state="enabled">
+        <description key="com.mesilat.check-https-cert.cert-not-after.desc"></description>
+        <category name="content"/>
+    </macro>
+
     <rest key="rest" path="/check-cert" version="1.0" name="REST API">
     </rest>
 
