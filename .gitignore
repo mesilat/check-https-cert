@@ -1,2 +1,6 @@
 /target/
 /nbproject/
+/temp/patch/nbproject/private/
+/temp/patch/build/
+/temp/patch/dist/
+/test/node_modules/
