@@ -16,6 +16,7 @@ import javax.inject.Inject;
 public class CheckCertMacro implements Macro {
     public static final String PLUGIN_KEY = "com.mesilat.check-https-cert";
 
+    @ComponentImport
     private final TemplateRenderer renderer;
 
     @Override
@@ -42,7 +43,7 @@ public class CheckCertMacro implements Macro {
     }
 
     @Inject
-    public CheckCertMacro(final @ComponentImport TemplateRenderer renderer){
+    public CheckCertMacro(TemplateRenderer renderer){
         this.renderer = renderer;
     }
 }

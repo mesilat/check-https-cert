@@ -2,6 +2,7 @@ package com.mesilat.certs;
 
 import java.util.Date;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -12,8 +13,9 @@ import org.codehaus.jackson.node.ObjectNode;
 
 @Path("/cert")
 public class CheckCertResource {
-//    private final static Logger LOGGER = LoggerFactory.getLogger("com.mesilat.check-https-cert");
     public final static long MS = 24l * 3600l * 1000l;
+
+    private final CheckCertService service;
 
     @Path("notAfter")
     @GET
@@ -30,5 +32,17 @@ public class CheckCertResource {
         } catch (CheckCertificateException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.toString()).build();
         }
+    }
+    
+    @Path("/recheckAll")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public Response recheckInMacros() {
+        service.recheckAll();
+        return Response.status(Response.Status.ACCEPTED).build();
+    }
+
+    public CheckCertResource(CheckCertService service) {
+        this.service = service;
     }
 }

@@ -16,10 +16,11 @@ import javax.inject.Inject;
 public class CheckCertMacroLegacy extends BaseMacro {
     public static final String PLUGIN_KEY = "com.mesilat.check-https-cert";
 
+    @ComponentImport
     private final TemplateRenderer renderer;
 
     @Override
-    public String execute(@SuppressWarnings("rawtypes") Map parameters, String body, RenderContext renderContext) throws MacroException {
+    public String execute(@SuppressWarnings("rawtypes") Map parameters, String body, RenderContext context) throws MacroException {
         Map<String,Object> map = new HashMap<>();
         map.put("host", parameters.get("host"));
         map.put("port", parameters.containsKey("port")? parameters.get("port"): "443");
@@ -62,7 +63,7 @@ public class CheckCertMacroLegacy extends BaseMacro {
     }
 
     @Inject
-    public CheckCertMacroLegacy(final @ComponentImport TemplateRenderer renderer){
+    public CheckCertMacroLegacy(TemplateRenderer renderer){
         this.renderer = renderer;
     }
 }
